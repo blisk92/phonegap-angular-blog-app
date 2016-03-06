@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="blog">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+		<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="bower_components/angular-material/angular-material.min.js"></script>
+		<script src="js/route.js"></script>
+		<script src="js/controller.js"></script>
+		<title>Mobile MEAN Blog</title>
+	</head>
+	<body>
+		<div ng-controller="sideNavController" layout="column" ng-cloak>
+			<section layout="row">
+				<section>
+					<div ng-include="'partials/sidenav.html'"></div>
+				</section>
+				 <section flex>
+					<div flex>
+						<div layoutfill layout-align="top" ng-include="'partials/header-toolbar.html'"></div>
+						<md-content class="view-animate-container">
+							<div class="view-animate" ng-view></div>
+						</md-content>
+					</div>
+				</section>
+			</section>
+		</div>
+	</body>
+</html>

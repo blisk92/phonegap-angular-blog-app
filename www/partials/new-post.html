@@ -1,0 +1,16 @@
+<div class="md-inline-form" flex>
+	<md-content>
+		<form name="postForm">
+			<md-input-container class="md-block">
+				<label>Title</label>
+				<input ng-required="true" ng-model="newPost.title">
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>Article Body</label>
+				<textarea rows="15" ng-required="true" md-minlength="150" ng-model="newPost.body" md-select-on-focus></textarea>
+			</md-input-container>
+			<span layout="column"flex></span>
+			<md-button class="md-raised" ng-click="submitPost()">Submit</md-button>
+		</form>
+	</md-content>
+</div>
