@@ -20,7 +20,7 @@ app.controller('mainController', ['$scope', '$http', '$location', function($scop
 }]);
 
 app.controller('articleController',['$scope', '$http', function($scope, $http) {
-	$http.get('http://172.0.0.:3030/'+getId.id)
+	$http.get('http://172.0.0.1:3030/'+getId.id)
 		.success(function(article){
 			$scope.article=article;
 			console.log($scope.article);
