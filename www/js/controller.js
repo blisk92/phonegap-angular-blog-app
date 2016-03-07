@@ -7,8 +7,7 @@ getId.id=[];
 
 app.controller('mainController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
-	//$http.get('http://127.00.1:3030')
-	$http.get('http://192.168.1.34:3030')
+	$http.get('http://127.00.1:3030')
 		.success(function(data){
 			$scope.posts=data;
 			console.log($scope.posts);
@@ -21,7 +20,7 @@ app.controller('mainController', ['$scope', '$http', '$location', function($scop
 }]);
 
 app.controller('articleController',['$scope', '$http', function($scope, $http) {
-	$http.get('http://192.168.1.34:3030/'+getId.id)
+	$http.get('http://172.0.0.:3030/'+getId.id)
 		.success(function(article){
 			$scope.article=article;
 			console.log($scope.article);
@@ -31,7 +30,7 @@ app.controller('articleController',['$scope', '$http', function($scope, $http) {
 app.controller('postController', ['$scope', '$http', '$location', function($scope,$http,$location) {
 	$scope.submitPost = function() {
 		console.log($scope.newPost);
-		$http.post('http://192.168.1.34:3030/', $scope.newPost)
+		$http.post('http://172.0.0.1:3030/', $scope.newPost)
 			.success(function(post){
 				console.log(post);
 				$scope.newPost=[];
