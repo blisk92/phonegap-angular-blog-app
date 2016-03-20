@@ -1,0 +1,29 @@
+<div class="md-inline-form" flex>
+	<md-content>
+		<form name="postForm">
+			<div layout="column">
+					<md-input-container class="md-block">
+						<label>Title</label>
+						<input type="text" required name="title" ng-model="newPost.title">
+						<div ng-messages="postForm.title.$error">
+							<p ng-message="required">This field is required!</p>
+						</div>
+					</md-input-container>
+					<md-input-container class="md-block">
+						<label>Article Body</label>
+						<textarea required ng-minlength="150" name="body" rows="15" ng-model="newPost.body" md-select-on-focus></textarea>
+						<div ng-messages="postForm.body.$error">
+							<p ng-message="required">This field is required!</p>
+							<p ng-message="minlength">Minimum number of characters is 150</p>
+						</div>
+					</md-input-container>
+				<div layout="row">
+					<span flex></span>
+					<md-checkbox ng-model="newPost.draft" ng-init="newPost.draft=false">Draft {{newPost.draft}}</md-checkbox>
+					<span flex="5"></span>
+					<md-button class="md-raised" ng-click="submitPost()" ng-disabled="postForm.$invalid">Submit</md-button>
+				</div>
+			</div>
+		</form>
+	</md-content>
+</div>

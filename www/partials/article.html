@@ -1,10 +1,14 @@
-<div>
-	<md-content>
-		<h3>
-			{{article.title}}
-		</h3>
-		<p>
-			{{article.body}}
-		</p>
-	</md-content>
+<h3>
+	{{article.title}}
+</h3>
+<p>
+{{article.body}}
+</p>
+<div layout="row">
+	<span flex></span>
+	<md-button class="md-fab md-icon-button md-primary" aria-label="Edit" ng-click="editPost()">
+		<i class="material-icons md-38">
+			mode_edit
+		</i>
+	</md-button>
 </div>

@@ -1,5 +1,6 @@
 var app = angular.module('appController', [
-		'ngMaterial'
+		'ngMaterial',
+		'ngMessages'
 ]);
 
 var getId= this;
@@ -7,11 +8,11 @@ getId.id=[];
 
 app.controller('mainController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
-	$http.get('http://127.00.1:3030')
+	$http.get('http://10.40.0.131:3030')
 		.success(function(data){
 			$scope.posts=data;
 			console.log($scope.posts);
-	});
+		});
 
 	$scope.openPost = function(id) {
 		$location.path('/readArticle');
@@ -19,25 +20,64 @@ app.controller('mainController', ['$scope', '$http', '$location', function($scop
 	};	
 }]);
 
-app.controller('articleController',['$scope', '$http', function($scope, $http) {
-	$http.get('http://127.0.0.1:3030/'+getId.id)
+app.controller('draftController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+	$http.get('http://10.40.0.131:3030/drafts')
+		.success(function(data){
+			$scope.posts=data;
+			console.log($scope.posts);
+		});
+
+	$scope.openPost = function(id) {
+		$location.path('/readArticle');
+		getId.id=id;
+	};	
+}]);
+
+app.controller('articleController',['$scope', '$http', '$location', function($scope, $http, $location) {
+	$http.get('http://10.40.0.131:3030/'+getId.id)
 		.success(function(article){
 			$scope.article=article;
 			console.log($scope.article);
 		});
+	$scope.editPost = function() {
+				$location.path('/edit');
+		};
+}]);
+
+app.controller('editController',['$scope', '$http', '$location', function($scope, $http, $location) {
+
+	$http.get('http://10.40.0.131:3030/'+getId.id)
+		.success(function(article){
+			$scope.newPost=article;
+			console.log($scope.newPost);
+		});
+	$scope.submitPost = function() {
+		$http.put('http://10.40.0.131:3030'+ $scope.newPost._id, $scope.newPost)
+			.success(function(post){
+				console.log(post);
+				$scope.newPost=[];
+				$location.path('/');
+			})
+
+		.error(function(error){
+			console.log("Error" + error);
+		});
+	};
 }]);
 
 app.controller('postController', ['$scope', '$http', '$location', function($scope,$http,$location) {
 	$scope.submitPost = function() {
-		$http.post('http://127.0.0.1:3030/', $scope.newPost)
+		console.log($scope.newPost);
+		$http.post('http://10.40.0.131:3030/', $scope.newPost)
 			.success(function(post){
 				console.log(post);
-				$location.path('/');
 				$scope.newPost=[];
+				$location.path('/');
 			})
-			.error(function(error){
-				console.log("Error" + error);
-			});
+		.error(function(error){
+			console.log("Error" + error);
+		});
 	};
 }]);
 
@@ -49,8 +89,13 @@ app.controller('sideNavController', ['$scope', '$timeout', '$mdSidenav', '$locat
 		$mdSidenav('left').toggle();
 	};
 
-	$scope.newPost = function() {
+	$scope.makeNewPost = function() {
 		$location.path('/newpost');
+		$mdSidenav('left').toggle();
+	};
+
+	$scope.goToDrafts = function() {
+		$location.path('/drafts');
 		$mdSidenav('left').toggle();
 	};
 
@@ -58,7 +103,7 @@ app.controller('sideNavController', ['$scope', '$timeout', '$mdSidenav', '$locat
 		var timer;
 		return function debounce() {
 			var context = $scope,
-				args = Array.prototype.slice.call(arguments);
+			args = Array.prototype.slice.call(arguments);
 			$timeout.cancel(timer);
 			timer = $timeout(function() {
 				time = undefined;
